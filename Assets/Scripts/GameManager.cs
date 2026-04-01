@@ -4,52 +4,50 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [Header("Doors")]
-    public GameObject doorRoom2;   // Door from Room 1 to Room 2
-    public GameObject doorRoom3;   // Door from Room 2 to Room 3
-    public GameObject doorExit;    // Final museum exit door
-
-    [Header("Task States")]
+    [Header("Puzzle States")]
     public bool task1Completed;
     public bool task2Completed;
     public bool task3Completed;
 
+    [Header("Doors")]
+    public DoorController room2Door;
+    public DoorController room3Door;
+    public DoorController exitDoor;
+
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+        Instance = this;
     }
 
     public void CompleteTask1()
     {
         if (task1Completed) return;
         task1Completed = true;
-        Debug.Log("Task 1 completed! Unlocking Room 2.");
-        if (doorRoom2 != null)
-            doorRoom2.SetActive(false); // Disable door collider/mesh to "open"
+        Debug.Log("Task 1 completed!");
+        if (room2Door != null)
+            room2Door.UnlockDoor();
     }
 
     public void CompleteTask2()
     {
         if (task2Completed) return;
         task2Completed = true;
-        Debug.Log("Task 2 completed! Unlocking Room 3.");
-        if (doorRoom3 != null)
-            doorRoom3.SetActive(false);
+        Debug.Log("Task 2 completed!");
+        if (room3Door != null)
+            room3Door.UnlockDoor();
     }
 
     public void CompleteTask3()
     {
         if (task3Completed) return;
         task3Completed = true;
-        Debug.Log("Task 3 completed! Unlocking Exit.");
-        if (doorExit != null)
-            doorExit.SetActive(false);
+        Debug.Log("Task 3 completed!");
+        if (exitDoor != null)
+            exitDoor.UnlockDoor();
     }
 }

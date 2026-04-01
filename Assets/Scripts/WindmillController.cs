@@ -4,24 +4,22 @@ public class WindmillController : MonoBehaviour
 {
     public Transform blades;
     public float rotationSpeed = 100f;
-    public Light poweredLight;
-
-    private bool isPowered;
+    public bool isActive;
+    public Light windmillLight;
 
     private void Update()
     {
-        if (isPowered && blades != null)
+        if (isActive && blades != null)
         {
             blades.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
         }
+
+        if (windmillLight != null)
+            windmillLight.enabled = isActive;
     }
 
-    public void SetPowered(bool powered)
+    public void SetActive(bool active)
     {
-        isPowered = powered;
-        if (poweredLight != null)
-        {
-            poweredLight.enabled = powered;
-        }
+        isActive = active;
     }
 }

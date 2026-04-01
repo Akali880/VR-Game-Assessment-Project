@@ -2,29 +2,19 @@ using UnityEngine;
 
 public class Task3Controller : MonoBehaviour
 {
-    private bool damOn;
-    private bool powerPlantOn;
+    public DamController dam;
+    public PowerPlantController powerPlant;
 
-    public void SetDamOn(bool on)
-    {
-        damOn = on;
-        Debug.Log("Task3: Dam is " + (on ? "ON" : "OFF"));
-        CheckCompletion();
-    }
+    private bool _completed;
 
-    public void SetPowerPlantOn(bool on)
+    private void Update()
     {
-        powerPlantOn = on;
-        Debug.Log("Task3: Power plant is " + (on ? "ON" : "OFF"));
-        CheckCompletion();
-    }
+        if (_completed) return;
+        if (dam == null || powerPlant == null) return;
 
-    private void CheckCompletion()
-    {
-        // Condition: dam ON, power plant OFF
-        if (damOn && !powerPlantOn)
+        if (dam.isOn && !powerPlant.isOn)
         {
-            Debug.Log("Task 3 complete! Unlocking exit.");
+            _completed = true;
             GameManager.Instance.CompleteTask3();
         }
     }

@@ -2,28 +2,19 @@ using UnityEngine;
 
 public class Task1Controller : MonoBehaviour
 {
-    private bool solarCharged;
-    private bool nonRenewableOff;
+    public SolarPanel solarPanel;
+    public NonRenewableGenerator generator;
 
-    public void SolarPanelCharged()
-    {
-        solarCharged = true;
-        Debug.Log("Task1: Solar panel condition met.");
-        CheckCompletion();
-    }
+    private bool _completed;
 
-    public void NonRenewableTurnedOff(bool isOff)
+    private void Update()
     {
-        nonRenewableOff = isOff;
-        Debug.Log("Task1: Non-renewable is off = " + isOff);
-        CheckCompletion();
-    }
+        if (_completed) return;
+        if (solarPanel == null || generator == null) return;
 
-    private void CheckCompletion()
-    {
-        if (solarCharged && nonRenewableOff)
+        if (solarPanel.isActive && !generator.isOn)
         {
-            Debug.Log("Task 1 complete! Unlocking next room.");
+            _completed = true;
             GameManager.Instance.CompleteTask1();
         }
     }
