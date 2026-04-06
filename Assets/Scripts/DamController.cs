@@ -1,24 +1,37 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class DamController : MonoBehaviour
 {
-    public bool isOn;
-    public Light statusLight;
+    public bool damOpened = false;
+
+    [Header("Button")]
+    public XRBaseInteractable damButton;
+
+    [Header("Power Plant")]
+    public PowerPlantController powerPlant;
 
     private void Start()
     {
-        UpdateVisual();
+        if (damButton != null)
+            damButton.selectEntered.AddListener(OnButtonPressed);
     }
 
-    public void TurnOn()
+    private void OnDestroy()
     {
-        isOn = true;
-        UpdateVisual();
+        if (damButton != null)
+            damButton.selectEntered.RemoveListener(OnButtonPressed);
     }
 
-    private void UpdateVisual()
+    private void OnButtonPressed(SelectEnterEventArgs args)
     {
-        if (statusLight != null)
-            statusLight.color = isOn ? Color.cyan : Color.gray;
+        if (damOpened) return;
+
+        damOpened = true;
+        Debug.Log("Dam button pressed — dam is now open!");
+
+        if (powerPlant != null)
+            powerPlant.CheckActivation();
     }
 }

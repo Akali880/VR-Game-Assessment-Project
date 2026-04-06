@@ -2,31 +2,29 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-    public bool isLocked = true;
-    public Transform openPosition;
-    public Transform closedPosition;
+    public bool isOpen = false;
+    public Vector3 openOffset = new Vector3(0, 0, -2f);
     public float openSpeed = 2f;
 
-    private bool _isOpening;
+    private Vector3 _closedPosition;
+    private Vector3 _targetPosition;
 
     private void Start()
     {
-        // Ensure door starts closed
-        if (closedPosition != null)
-            transform.position = closedPosition.position;
+        _closedPosition = transform.position;
+        _targetPosition = _closedPosition;
     }
 
     private void Update()
     {
-        if (_isOpening && openPosition != null)
-        {
-            transform.position = Vector3.Lerp(transform.position, openPosition.position, Time.deltaTime * openSpeed);
-        }
+        transform.position = Vector3.Lerp(transform.position, _targetPosition, Time.deltaTime * openSpeed);
     }
 
-    public void UnlockDoor()
+    public void OpenDoor()
     {
-        isLocked = false;
-        _isOpening = true;
+        if (isOpen) return;
+
+        isOpen = true;
+        _targetPosition = _closedPosition + openOffset;
     }
 }
