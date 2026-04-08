@@ -2,32 +2,33 @@ using UnityEngine;
 
 public class PowerPlantController : MonoBehaviour
 {
-    public bool isPowered = false;
+    [Header("Button Reference")]
+    public PowerPlantButton shutdownButton;
 
-    [Header("Indicator Light")]
-    public Light indicatorLight;
+    [Header("Visuals")]
+    public GameObject runningVisual;
+    public GameObject offVisual;
 
-    [Header("Dam Reference")]
-    public DamController damController;
+    [Header("State")]
+    public bool plantOff = false;
 
-    public void CheckActivation()
+    private void Start()
     {
-        if (isPowered) return;
-
-        if (damController != null && damController.damOpened)
-        {
-            ActivatePlant();
-        }
+        runningVisual.SetActive(true);
+        offVisual.SetActive(false);
     }
 
-    private void ActivatePlant()
+    private void Update()
     {
-        isPowered = true;
-        Debug.Log("Power plant activated!");
+        if (!plantOff && shutdownButton.isPressed)
+        {
+            plantOff = true;
+            Debug.Log("Power plant is now OFF!");
 
-        if (indicatorLight != null)
-            indicatorLight.enabled = true;
+            runningVisual.SetActive(false);
+            offVisual.SetActive(true);
 
-        GameManager.Instance.CompleteTask3();
+            GameManager.Instance.CheckTask3Progress();
+        }
     }
 }

@@ -14,7 +14,6 @@ public class NonRenewableController : MonoBehaviour
 
     private void Start()
     {
-        // Machine starts ON
         runningVisual.SetActive(true);
         offVisual.SetActive(false);
     }
@@ -26,13 +25,10 @@ public class NonRenewableController : MonoBehaviour
             machineOff = true;
             Debug.Log("Machine is now OFF!");
 
-            // Switch visuals
             runningVisual.SetActive(false);
             offVisual.SetActive(true);
 
-            // Notify GameManager to check both conditions
             GameManager.Instance.CheckTask1Progress();
         }
     }
 }
-

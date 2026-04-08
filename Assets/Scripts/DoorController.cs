@@ -1,30 +1,50 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-    public bool isOpen = false;
-    public Vector3 openOffset = new Vector3(0, 0, -2f);
+    [Header("Animator Door (Optional)")]
+    public Animator doorAnimator;
+
+    [Header("Transform Door (Optional)")]
+    public Transform doorTransform;
+    public Vector3 openPositionOffset;
     public float openSpeed = 2f;
 
-    private Vector3 _closedPosition;
-    private Vector3 _targetPosition;
+    private bool isOpen = false;
+    private Vector3 closedPosition;
+    private Vector3 openPosition;
 
     private void Start()
     {
-        _closedPosition = transform.position;
-        _targetPosition = _closedPosition;
+        if (doorTransform != null)
+        {
+            closedPosition = doorTransform.position;
+            openPosition = closedPosition + openPositionOffset;
+        }
     }
 
-    private void Update()
-    {
-        transform.position = Vector3.Lerp(transform.position, _targetPosition, Time.deltaTime * openSpeed);
-    }
-
-    public void OpenDoor()
+    public void OpenDoor()   // ← MUST be public, void, no parameters
     {
         if (isOpen) return;
 
         isOpen = true;
-        _targetPosition = _closedPosition + openOffset;
+        Debug.Log("Door opening: " + gameObject.name);
+
+        if (doorAnimator != null)
+        {
+            doorAnimator.SetTrigger("Open");
+        }
+    }
+
+    private void Update()
+    {
+        if (isOpen && doorTransform != null)
+        {
+            doorTransform.position = Vector3.Lerp(
+                doorTransform.position,
+                openPosition,
+                Time.deltaTime * openSpeed
+            );
+        }
     }
 }
