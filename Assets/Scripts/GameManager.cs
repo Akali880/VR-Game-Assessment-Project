@@ -63,7 +63,8 @@ public class GameManager : MonoBehaviour
 
         if (solarPanel != null && nonRenewable != null)
         {
-            if (solarPanel.isPowered && nonRenewable.machineOff)
+            // FIXED: replaced machineOff with isOff
+            if (solarPanel.isPowered && nonRenewable.isOff)
             {
                 CompleteTask1();
             }

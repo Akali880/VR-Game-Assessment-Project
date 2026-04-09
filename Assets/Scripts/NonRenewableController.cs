@@ -2,33 +2,20 @@ using UnityEngine;
 
 public class NonRenewableController : MonoBehaviour
 {
-    [Header("Button Reference")]
-    public FossilButton shutdownButton;
-
-    [Header("Visuals")]
     public GameObject runningVisual;
     public GameObject offVisual;
+    [HideInInspector] public bool isOff = false;
 
-    [Header("Machine State")]
-    public bool machineOff = false;
-
-    private void Start()
+    public void TurnOffMachine()
     {
-        runningVisual.SetActive(true);
-        offVisual.SetActive(false);
-    }
+        isOff = true;
 
-    private void Update()
-    {
-        if (!machineOff && shutdownButton.isPressed)
-        {
-            machineOff = true;
-            Debug.Log("Machine is now OFF!");
-
+        if (runningVisual != null)
             runningVisual.SetActive(false);
+
+        if (offVisual != null)
             offVisual.SetActive(true);
 
-            GameManager.Instance.CheckTask1Progress();
-        }
+        GameManager.Instance.CheckTask1Progress();
     }
 }

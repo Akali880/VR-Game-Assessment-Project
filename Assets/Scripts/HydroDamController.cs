@@ -2,32 +2,22 @@ using UnityEngine;
 
 public class HydroDamController : MonoBehaviour
 {
-    [Header("Button Reference")]
-    public HydroButton hydroButton;
-
-    [Header("Visual")]
-    public GameObject waterVisual;
-
-    [Header("State")]
+    public GameObject damInactiveVisual;
+    public GameObject damActiveVisual;
     public bool damActivated = false;
 
-    private void Start()
+    public void ActivateDam()
     {
-        if (waterVisual != null)
-            waterVisual.SetActive(false);
-    }
+        if (damActivated) return;
 
-    private void Update()
-    {
-        if (!damActivated && hydroButton.isPressed)
-        {
-            damActivated = true;
-            Debug.Log("Hydro dam activated!");
+        damActivated = true;
 
-            if (waterVisual != null)
-                waterVisual.SetActive(true);
+        if (damInactiveVisual != null)
+            damInactiveVisual.SetActive(false);
 
-            GameManager.Instance.CheckTask3Progress();
-        }
+        if (damActiveVisual != null)
+            damActiveVisual.SetActive(true);
+
+        GameManager.Instance.CheckTask3Progress();
     }
 }

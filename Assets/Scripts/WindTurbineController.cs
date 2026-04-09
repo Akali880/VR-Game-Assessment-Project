@@ -4,27 +4,29 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class WindTurbineController : MonoBehaviour
 {
-    [Header("Blade Sockets")]
     public XRSocketInteractor socket1;
     public XRSocketInteractor socket2;
     public XRSocketInteractor socket3;
 
-    [Header("State")]
-    public bool task2Complete = false;
+    private int bladesAttached = 0;
+    private bool taskCompleted = false;
 
-    private void Update()
+    private void Start()
     {
-        if (task2Complete) return;
+        socket1.selectEntered.AddListener(OnBladeInserted);
+        socket2.selectEntered.AddListener(OnBladeInserted);
+        socket3.selectEntered.AddListener(OnBladeInserted);
+    }
 
-        bool blade1Inserted = socket1.hasSelection;
-        bool blade2Inserted = socket2.hasSelection;
-        bool blade3Inserted = socket3.hasSelection;
+    private void OnBladeInserted(SelectEnterEventArgs args)
+    {
+        if (taskCompleted) return;
 
-        if (blade1Inserted && blade2Inserted && blade3Inserted)
+        bladesAttached++;
+
+        if (bladesAttached >= 3)
         {
-            task2Complete = true;
-            Debug.Log("Wind turbine fully assembled!");
-
+            taskCompleted = true;
             GameManager.Instance.CompleteTask2();
         }
     }
