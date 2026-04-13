@@ -4,6 +4,10 @@ public class PowerPlantController : MonoBehaviour
 {
     public GameObject runningVisual;
     public GameObject offVisual;
+
+    [Header("Effects")]
+    public ParticleSystem smokeSystem;
+
     public bool plantOff = false;
 
     public void ShutDownPlant()
@@ -17,6 +21,10 @@ public class PowerPlantController : MonoBehaviour
 
         if (offVisual != null)
             offVisual.SetActive(true);
+
+        // Stop smoke when shutting down
+        if (smokeSystem != null)
+            smokeSystem.Stop();
 
         GameManager.Instance.CheckTask3Progress();
     }
