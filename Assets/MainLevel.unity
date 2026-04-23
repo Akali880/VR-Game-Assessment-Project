@@ -1881,7 +1881,7 @@ MonoBehaviour:
     in a large boiler to heat water into high\u2011pressure steam. This steam spins
     a turbine, which turns a generator to produce electricity.\n\nWhile fossil\u2011fuel
     plants have powered cities and industries for more than a century, they rely
-    on finite resources and produce significant emissions, including carbon dioxide
+    on infinite resources and produce significant emissions, including carbon dioxide
     and air pollutants. Because these fuels take millions of years to form and are
     consumed far faster than they are created, they are non\u2011renewable."
   m_isRightToLeft: 0
@@ -10791,14 +10791,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "A fossil\u2011fuel power plant is a facility that generates electricity
-    by burning coal, oil, or natural gas\u2014fuels formed from ancient plant and
-    animal matter over millions of years.\n\nInside the plant, the fuel is burned
-    in a large boiler to heat water into high\u2011pressure steam. This steam spins
-    a turbine, which turns a generator to produce electricity.\n\nWhile fossil\u2011fuel
-    plants have powered cities and industries for more than a century, they rely
-    on finite resources and produce significant emissions, including carbon dioxide
-    and air pollutants. Because these fuels take millions of years to form and are
-    consumed far faster than they are created, they are non\u2011renewable."
+    by burning coal, oil, or natural gas fuels formed from ancient plant and animal
+    matter over millions of years.\n\nInside the plant, the fuel is burned in a large
+    boiler to heat water into high\u2011pressure steam. This steam spins a turbine,
+    which turns a generator to produce electricity.\n\nWhile fossil\u2011fuel plants
+    have powered cities and industries for more than a century, they rely on infinite
+    resources and produce significant emissions, including carbon dioxide and air
+    pollutants. Because these fuels take millions of years to form and are consumed
+    far faster than they are created, they are non\u2011renewable."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
